@@ -334,7 +334,7 @@ export class Tree {
 
     isBalanced() {
         if (this.root === null) {
-            return null;
+            return true;
         }
 
         this.#isNodeBalanced(this.root);
@@ -355,6 +355,28 @@ export class Tree {
         
         // Recursively check left and right subtrees
         return this.#isNodeBalanced(node.left) && this.#isNodeBalanced(node.right);
+    }
+
+    //rebalance() function that rebalances an unbalanced tree. 
+    // You’ll want to use a traversal method to provide a new array to the buildTree() function.
+
+
+    rebalance() {
+
+        if (!this.#isNodeBalanced(this.root)) {
+            const newArray = [];
+
+            this.inOrderForEach((value) => {
+                newArray.push(value);
+            })
+
+            const newBalancedTree = new Tree(newArray);
+            return newBalancedTree;
+
+        }
+        return this;
+        
+
     }
 
 
