@@ -256,22 +256,45 @@ export class Tree {
     // If the value is not found in the tree, the function should return undefined.
 
     height(value) {
-        if (this.root === null) {
-            return;
+        const targetNode = this.#findNode(value)   ;
+
+        if (!targetNode) {
+            return undefined;
         }
 
-        let count = 0;
+        const height = this.#findHeight(targetNode);
+
+        return height;
+
+    }
+
+    #findHeight(node) {
+        if (node === null || node === undefined) {
+            return -1; 
+        }
+
+        const heightLeft = this.#findHeight(node.left);
+        const heightRight = this.#findHeight(node.right);
+
+        return 1 + Math.max(heightLeft, heightRight);
+    }
+
+    #findNode(value) {
+        if (this.root === null || this.root === undefined) {
+            return;
+        } 
+
         let current = this.root;
 
         while(current !== null) {
             if (value === current.data) {
-                count++;
-                return count;
-            } else if (value < current.data) {
+                return current;
+            }else if (value < current.data) {
                 current = current.left;
             }else {
                 current = current.right;
             }
         }
+        return null;
     }
 }
