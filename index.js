@@ -256,7 +256,7 @@ export class Tree {
     // If the value is not found in the tree, the function should return undefined.
 
     height(value) {
-        const targetNode = this.#findNode(value)   ;
+        const targetNode = this.#findNode(value);
 
         if (!targetNode) {
             return undefined;
@@ -296,5 +296,34 @@ export class Tree {
             }
         }
         return null;
+    }
+
+
+    // depth(value) function that returns the depth of the node containing the given value.
+    // Depth is defined as the number of edges in the path from that node to the root node.
+    // If the value is not found in the tree, the function should return undefined.
+
+
+    depth(value) {
+        if (this.root === null || this.root === undefined) {
+            return undefined;
+        }
+
+        let current = this.root;
+
+        let count = 0;
+
+        while (current !== null) {
+            if (value === current.data) {
+                return count;
+            }else if (value < current.data) {
+                current = current.left;
+                count++;
+            }else {
+                current = current.right;
+                count++;
+            }
+        }
+        return undefined;
     }
 }
