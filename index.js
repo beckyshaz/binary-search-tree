@@ -120,8 +120,15 @@ export class Tree {
     }
 
     //Write a deleteItem(value) function that accepts a value and removes it from the tree.
-    deleteItem(root, value) {
+    deleteItem(value) {
 
+        const targetNode = this.#findNode(value);
+
+        if (targetNode.left && targetNode.right === null) {
+            targetNode = null;
+        }else if (targetNode.left === null) {
+            
+        }
         function getSuccessor(curr) {
 
             curr = curr.right;
@@ -159,6 +166,7 @@ export class Tree {
         return root
 
     }
+
 
     //Write a levelOrderForEach(callback) function that accepts a callback function as its parameter
     //levelOrderForEach() should traverse the tree in breadth-first level order 
@@ -225,8 +233,8 @@ export class Tree {
 
         callback(node.data);
 
-        this.#preOrder(node.left);
-        this.#preOrder(node.right);
+        this.#preOrder(node.left, callback);
+        this.#preOrder(node.right, callback);
     }
 
 
@@ -337,7 +345,7 @@ export class Tree {
             return true;
         }
 
-        this.#isNodeBalanced(this.root);
+        return this.#isNodeBalanced(this.root);
     }
 
     #isNodeBalanced(node) {
@@ -371,7 +379,7 @@ export class Tree {
             })
 
             const newBalancedTree = new Tree(newArray);
-            return newBalancedTree;
+            this.root = newBalancedTree.root;
 
         }
         return this;
